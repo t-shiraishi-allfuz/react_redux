@@ -12,6 +12,10 @@ module.exports = {
 			use: [{
 				loader: 'babel-loader',
 				options: {
+					plugins: [
+						'react-html-attrs',
+						[require('@babel/plugin-proposal-decorators'), {legacy: true}]
+					],
 					presets: ['@babel/preset-react', '@babel/preset-env']
 				}
 			}]
@@ -26,6 +30,7 @@ module.exports = {
 		historyApiFallback: true
 	},
 	plugins: debug ? [] : [
+		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
 	],
 };
